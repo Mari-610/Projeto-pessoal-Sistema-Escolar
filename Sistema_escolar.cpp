@@ -158,17 +158,20 @@ int main(void) {
 			}
 		}
 		break;
-		case 2:
-			char *p;
-			char busca[80];
-			int encontrado = 0;
-			int tent;
-			printf ("_____Busca_____\n");
-			printf ("Insira o nome completo da pessoa cadastrada:\n");
-			fgets(busca, 80, stdin);
-			busca[strcspn(busca, "\n")] = '\0';
-			for (i=0; i<pc; ++i) {
-				p = strstr(pessoa[i].nome, busca);
+		case 2: {
+		char *p;
+		char busca[80];
+		int encontrado = 0;
+		int tent;
+		printf ("_____Busca_____\n");
+		do {
+		tent = 0;
+		encontrado = 0;
+		printf ("Insira o nome completo da pessoa cadastrada:\n");
+		fgets(busca, 80, stdin);
+		busca[strcspn(busca, "\n")] = '\0';
+		for (i=0; i<pc; ++i) {
+		p = strstr(pessoa[i].nome, busca);
 			if (p != NULL) {
 				printf ("Cadastro encontrado!\n");
 				printf ("%s\n", pessoa[i].nome);
@@ -178,31 +181,98 @@ int main(void) {
 				encontrado=1;
 			}
 		}
-			if (encontrado==0) {
-				printf ("Cadastro não encontrado.\nInsira (1) para buscar outro nome ou (0) para fechar");
-				scanf ("%i", &tent);
-				while (getchar() != '\n');
-				if (tent==1) {
-					for (i=0; i<pc; ++i) {
-					p = strstr(pessoa[i].nome, busca);
-					if (p != NULL) {
-					printf ("Cadastro encontrado!\n");
-					printf ("%s\n", pessoa[i].nome);
-					printf ("%i\n", pessoa[i].idade);
-					printf("%s\n", pessoa[i].tel);
-					printf ("%s\n", pessoa[i].cpf);
-					encontrado=1;
-					}							
-				}
-			}
-			else {
-				printf("Não encontrado!");
-			}
+		if (encontrado==0) {
+			printf ("Cadastro não encontrado.\nInsira (1) para buscar outro nome ou (0) para fechar\n");
+			scanf ("%i", &tent);
+			while (getchar() != '\n');
 		}
+	} while (tent==1);
 	break;
 }
+	case 3: {
+	char *b;
+	char encontrar[80];
+	int find=0;
+	int j;
+	char name[80];
+	char opn;
+	printf ("__________Alterar Cadastro__________");
+	printf("\n");
+	printf ("Insira o nome da pessoa cujo cadastro será alretado:\n");
+	fgets (name, 80, stdin);
+	name[strcspn(name, "\n")] = '\0';
+	for (i=0; i<pc; ++i) {
+	b = strstr (pessoa[i].nome, name);
+	if (b != NULL) {
+		printf ("Encontrado: %s\n", pessoa[i].nome );
+		printf ("É você? (S)(N)");
+		scanf (" %c", &opn);
+		while (getchar() != '\n');
+		if (opn=='S') {
+		find =1;
+		break;
+		}
+		}
+		}
+		if (find==1) {
+		printf ("Insira a situação da pessoa a ser cadastrada:\n(1)Aluno\n(2)Professor\n");
+		scanf("%i", &situacao);
+		while (getchar() != '\n');
+		
+		pessoa[i].situacao=situacao;
+		if (pessoa[i].situacao==1) {
+		printf ("BEM VINDO, ALUNO!");
+		printf ("Insira sua idade:\n");
+		scanf("%i", &pessoa[i].idade);
+		while (getchar() != '\n');	
+		printf("Insira seu nome completo:\n");
+		fgets (pessoa[i].nome, 80, stdin);
+		pessoa[i].nome[strcspn(pessoa[i].nome, "\n")] = '\0';
+		printf ("Insira o número de telefone:\n");
+		fgets(pessoa[i].tel, 20, stdin);
+		pessoa[i].tel[strcspn(pessoa[i].tel, "\n")] = '\0';
+		printf ("Insira seu CPF:\n");
+		fgets(pessoa[i].cpf, 16, stdin);
+		pessoa[i].cpf[strcspn(pessoa[i].cpf, "\n")] = '\0';
+		printf("Insira seu curso:\n");
+		printf ("Escolha seu curso:\n(1)Desenvolvimento de Sistemas\n(2)Eletrônica\n(3)Mecânica\n(4)Energias renováveis\n(5)Telecomunicações\n");
+		scanf("%i", &pessoa[i].op);
+		while (getchar() != '\n');
+		curso(pessoa[i].op);
+		printf("\n");
+		printf("\nInsira as atuais notas dos alunos:\n");
+		pessoa[i].media = notas(pessoa[i].media);
+		}
+		else {
+			printf ("\nBEM VINDO, PROFESSOR!\n");
+					printf ("Insira sua idade:\n");
+					scanf("%i", &pessoa[i].idade);
+					while (getchar() != '\n');
+					printf("Insira seu nome completo:\n");
+					fgets (pessoa[i].nome, 80, stdin);
+					pessoa[i].nome[strcspn(pessoa[i].nome, "\n")] = '\0';
+					printf ("Insira o número de telefone:\n");
+					fgets(pessoa[i].tel, 20, stdin);
+					pessoa[i].tel[strcspn(pessoa[i].tel, "\n")] = '\0';
+					printf ("Insira seu CPF:\n");
+					fgets(pessoa[i].cpf, 16, stdin);
+					pessoa[i].cpf[strcspn(pessoa[i].cpf, "\n")] = '\0';
+					printf ("Insira sua disciplina:\n");
+					fgets(pessoa[i].disciplina, 70, stdin);
+					pessoa[i].disciplina[strcspn(pessoa[i].disciplina, "\n")] = '\0';
+					printf("Insira o salário, use ponto para as casas decimais:\n");
+					scanf("%f", &pessoa[i].salario);
+					while (getchar() != '\n');				
+				}
+	}
+	else {
+		printf ("Cadastro não encontrado!");
+	}
+	break;
+	}
+	}
 	}
 	while (menu != 5);
-		return 0;
+	return 0;
 	}
 
