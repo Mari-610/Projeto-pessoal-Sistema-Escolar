@@ -107,7 +107,6 @@ int main(void) {
 		printf ("Insira seu CPF:\n");
 		fgets(pessoa[i].cpf, 16, stdin);
 		pessoa[i].cpf[strcspn(pessoa[i].cpf, "\n")] = '\0';
-		printf("Insira seu curso:\n");
 		printf ("Escolha seu curso:\n(1)Desenvolvimento de Sistemas\n(2)Eletrônica\n(3)Mecânica\n(4)Energias renováveis\n(5)Telecomunicações\n");
 		scanf("%i", &pessoa[i].op);
 		while (getchar() != '\n');
@@ -269,7 +268,7 @@ int main(void) {
 		printf ("Cadastro não encontrado!");
 	}
 	break;
-	} //Tudo certo até aqui, falta testar
+	}
 	case 4:
 	char deletado[80];
 	char resp;
@@ -286,18 +285,19 @@ int main(void) {
 		printf("\n");
 		printf("Este é você?(S)(N)");
 		scanf(" %c", &resp);
-		if (resp=='s') {
+		if (resp=='s' || resp=='S') {
 			pessoa[i].nome[0]='\0';
 			pessoa[i].idade='\0';
 			pessoa[i].tel[0]='\0';
 			pessoa[i].cpf[0]='\0';
 		}
+		else {
+			printf ("Encerrando");
+		}
 	}
 }
 	if (encontrado==0) {
-		printf("Nome não encontrado, insira novamente:\n");
-		fgets(deletado, 80, stdin);
-		deletado[strcspn(deletado, "\n")] = '\0';
+		printf("Nome não encontrado");
 	}
 	}
 	} 
