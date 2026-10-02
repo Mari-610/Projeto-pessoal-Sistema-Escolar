@@ -269,9 +269,38 @@ int main(void) {
 		printf ("Cadastro não encontrado!");
 	}
 	break;
+	} //Tudo certo até aqui, falta testar
+	case 4:
+	char deletado[80];
+	char resp;
+	int encontrado=0;
+	printf ("_____DELETAR CADASTRO_____\n");
+	printf("Insira o nome da pessoa cujo cadastro será deletado");
+	fgets(deletado,80,stdin);
+	deletado[strcspn(deletado, "\n")] = '\0';
+	for (i=0; i<pc; ++i) {
+		if (strcmp(deletado, pessoa[i].nome) == 0) {
+		encontrado=1;
+		printf ("%s\n", pessoa[i].nome);
+		printf ("%i\n", pessoa[i].idade);
+		printf("\n");
+		printf("Este é você?(S)(N)");
+		scanf(" %c", &resp);
+		if (resp=='s') {
+			pessoa[i].nome[0]='\0';
+			pessoa[i].idade='\0';
+			pessoa[i].tel[0]='\0';
+			pessoa[i].cpf[0]='\0';
+		}
+	}
+}
+	if (encontrado==0) {
+		printf("Nome não encontrado, insira novamente:\n");
+		fgets(deletado, 80, stdin);
+		deletado[strcspn(deletado, "\n")] = '\0';
 	}
 	}
-	}
+	} 
 	while (menu != 5);
 	return 0;
 	}
